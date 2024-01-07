@@ -8,12 +8,14 @@ import questionary
 
 def get_templates(template_dir):
     template_names = [
-        folder for folder in listdir(template_dir) if isdir(join(template_dir, folder))
+        folder
+        for folder in listdir(template_dir)
+        if isdir(join(template_dir, folder)) and not folder.startswith("__")
     ]
     return template_names
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         prog="quick",
         description="Creates a project template in the specified directory.",
@@ -29,7 +31,8 @@ if __name__ == "__main__":
         args.template = questionary.select(
             "Which template to use?", template_names
         ).ask()
-    src_dir = join(dirname(abspath(__file__)), "templates", args.template)
+
+    src_dir = join(template_dir, args.template)
     dest_dir = join(getcwd(), args.project_name)
 
     try:
