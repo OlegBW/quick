@@ -1,3 +1,0 @@
-[console_scripts]
-quickr = quickr.__main__:main
-
